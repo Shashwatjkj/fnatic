@@ -48,7 +48,7 @@ const registerUser=asyncHandler(async(req,res)=>{
 
     const mail= await sendEmail(email,"verify",edoc);
 
-    const created=await User.findById(savedUser._id).select("-password");
+    const created=await User.findById(savedUser._id).select("-password -verifyCode");
     
     
     if(!created){
