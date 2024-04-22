@@ -17,7 +17,15 @@ const userSchema=new mongoose.Schema(
             type: String,
             required: [true, 'Password is required']
 
-        }
+        },
+        isVerified :{
+            type: Boolean,
+            default : false 
+        },
+        verifyCode: {
+            type: String,
+            required: [true, 'Verify Code is required'],
+          }
         
     },{timestamps:true}
 )

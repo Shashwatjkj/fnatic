@@ -16,7 +16,7 @@ app.use(cookieParser())
 
 
 app.get("/",(req,res)=>{
-    res.send("work is start");
+    res.send("The work has begun.");
 })
 
 
