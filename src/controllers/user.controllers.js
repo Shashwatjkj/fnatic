@@ -4,8 +4,11 @@ import { ApiError } from "../utils/ApiError.js";
 import mongoose from "mongoose";
 import { generateotp } from "../utils/codeGenerator.js";
 import { sendEmail } from "../utils/sendmail.js";
+import jwt from "jsonwebtoken";
 
 
+
+// sign up api.  
 const registerUser=asyncHandler(async(req,res)=>{
     const {username,email,password}=req.body
     console.log(`${username},${email},${password}`);
@@ -19,7 +22,7 @@ const registerUser=asyncHandler(async(req,res)=>{
        email,
        isVerified:"true"
     })
-    //console.log(existeduser);
+   
     if(existeduser){
         throw new ApiError(409,"user already existed.")
     }
@@ -61,9 +64,64 @@ const registerUser=asyncHandler(async(req,res)=>{
     return res.status(201).json(created);
 })
 
-
+// login api
 const loginUser=asyncHandler(async(req,res)=>{
+const {email,password}=req.body;
+if(!email){
+    throw new ApiError(400,"Email not found.")
+}
+const isEmailexist=await User.findOne({email});
 
+
+if(!isEmailexist){ return res.status(404).json({
+    message : "User is not found."
+})}
+
+if(isEmailexist.isVerified===false){
+    return res.status(401).json({
+        message : "User is not verified."
+    })
+}
+
+if(isEmailexist.password!==password){
+ return res.status(402).json({
+    message : "Invalid password"
+})
+}
+
+const token= jwt.sign({
+    _id:isEmailexist._id,
+    email:email
+},process.env.SECRET_KEY)
+
+
+const options={
+    httpOnly: true,
+    secure: true
+}
+
+res.cookie("login_cookie",token,options);
+
+return res.status(200).json({
+    message: "login is successful",
+    login_cookie: token
+})
+})
+
+// logout api
+const logOut=asyncHandler(async(req,res)=>{
+
+const options={
+    httpOnly: true,
+    secure: true
+}
+
+res
+.status(200)
+.clearCookie("login_cookie",options)
+.json({
+    message:"user is loggedout"
+})
 
 
 })
@@ -71,7 +129,23 @@ const loginUser=asyncHandler(async(req,res)=>{
 
 
 
+// otp verification api
+const otpverificaton=asyncHandler(async(req,res)=>{
+    const {email,otp}=req.body;
+
+    
+})
+
+
+
+
+
+
+
+
 export {
     registerUser,
-    loginUser
+    loginUser,
+    otpverificaton,
+    logOut
 }
