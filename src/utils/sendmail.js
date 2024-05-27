@@ -20,7 +20,7 @@ const sendEmail=async(email,emailType, verifycode)=>{
             to: email, // list of receivers
             subject: emailType==="verify" ?"Verfiy your email" : "Reset your password", // Subject line
             text: "Your verification code is" + verifycode, // plain text body
-            html: "<b>Verify your Email</b><br>", // html body
+            
           }
           const sended =await transporter.sendMail(mailOpt);
           return sended;
