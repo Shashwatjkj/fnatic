@@ -136,23 +136,23 @@ const otpverificaton=asyncHandler(async(req,res)=>{
         email,
         isVerified:"false"
     })
-    const rightcode= existeduser.verifyCode;
+    
     if(!existeduser){
         return res.status(400).json({
-            message :"user does not exists."
+            message :"User does not have pending verification."
         })
     }
-
+    const rightcode= existeduser.verifyCode;
     if(rightcode===otp){
         existeduser.isVerified=true;
         const temp=await existeduser.save();
         return res.status(200).json({
-            message :"user is verified."
+            message :"User is verified."
         })
     }
     else{
         return res.status(400).json({
-            message :"wrong otp."
+            message :"Wrong otp."
         })
     }
     
