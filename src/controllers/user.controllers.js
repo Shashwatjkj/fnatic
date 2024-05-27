@@ -132,8 +132,29 @@ res
 // otp verification api
 const otpverificaton=asyncHandler(async(req,res)=>{
     const {email,otp}=req.body;
-     const teft="fdk";
-    
+    const existeduser=await User.findOne({
+        email,
+        isVerified:"false"
+    })
+    const rightcode= existeduser.verifyCode;
+    if(!existeduser){
+        return res.status(400).json({
+            message :"user does not exists."
+        })
+    }
+
+    if(rightcode===otp){
+        existeduser.isVerified=true;
+        const temp=await existeduser.save();
+        return res.status(200).json({
+            message :"user is verified."
+        })
+    }
+    else{
+        return res.status(400).json({
+            message :"wrong otp."
+        })
+    }
     
 })
 
