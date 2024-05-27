@@ -19,8 +19,8 @@ const sendEmail=async(email,emailType, verifycode)=>{
             from: process.env.MAIL, // sender address
             to: email, // list of receivers
             subject: emailType==="verify" ?"Verfiy your email" : "Reset your password", // Subject line
-            text: `Your verification code is ${verifycode}`, // plain text body
-            html: "<b>Verify your Email</b>", // html body
+            text: "Your verification code is" + verifycode, // plain text body
+            html: "<b>Verify your Email</b><br>", // html body
           }
           const sended =await transporter.sendMail(mailOpt);
           return sended;
