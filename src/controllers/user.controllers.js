@@ -132,7 +132,8 @@ res
 // otp verification api
 const otpverificaton=asyncHandler(async(req,res)=>{
     const {email,otp}=req.body;
-
+     const teft="fdk";
+    
     
 })
 
