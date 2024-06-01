@@ -9,7 +9,7 @@ const productSchema=new mongoose.Schema(
         },
         price:{
             type: Number,
-            require: true   
+            required: true   
         },
         description:{
             type: String,
@@ -17,11 +17,11 @@ const productSchema=new mongoose.Schema(
         },
         category:{
             type: String,
-            requir: true
+            required: true
         },
         imageUrl:{
             type:String,
-            require: true
+            required: true
         },
         rating:{
             type:Number
