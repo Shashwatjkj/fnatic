@@ -1,5 +1,25 @@
 import mongoose from "mongoose"
 
+const versionSchema=new mongoose.Schema({
+    price:{
+        type: Number
+    },
+    color:{
+        type:String,
+    },
+    imageURI:[String]
+})
+
+const attributeSchema=new mongoose.Schema({
+    nameofattribute:{
+        type: String
+    },
+    actualattribute:{
+        type:String,
+    }
+})
+
+
 const productSchema=new mongoose.Schema(
     {
         title: {
@@ -19,6 +39,8 @@ const productSchema=new mongoose.Schema(
             type: String,
             required: true
         },
+        version:[versionSchema], 
+        attributes:[attributeSchema],
         imageUrl:{
             type:String,
             required: true

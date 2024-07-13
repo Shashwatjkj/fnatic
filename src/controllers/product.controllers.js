@@ -4,8 +4,10 @@ import { Product } from "../models/product.model.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import mongoose from "mongoose";
 
+//     /api/v1/products/upload
+//upload api
 const UploadProductDetail=asyncHandler(async(req,res)=>{
-    const {title,price,description,category}=req.body;
+    const {title,price,description,category,version,attributes}=req.body;
 
     if (
         [title,price,description,category].some((field) => field?.trim() === "")
@@ -21,7 +23,7 @@ const UploadProductDetail=asyncHandler(async(req,res)=>{
         throw new ApiError(409, "Title  already exists")
     }
 
-    const localpath=req.file?.path;
+    const localpath= req.files?.firstImage[0]?.path;
 
     if (!localpath) {
         throw new ApiError(400, "Image of product is required")
@@ -29,16 +31,17 @@ const UploadProductDetail=asyncHandler(async(req,res)=>{
 
     const Urlofimage=await uploadOnCloudinary(localpath);
 
+   console.log(req.fiels);
 
-    const product =new Product({
-        title,
-        price,
-        description,
-        category,
-        imageUrl :Urlofimage.url
+    // const product =new Product({
+    //     title,
+    //     price,
+    //     description,
+    //     category,
+    //     imageUrl :Urlofimage.url
 
-    })
-    const savedProduct=await product.save();
+    // })
+    // const savedProduct=await product.save();
     
     return res.status(200).json(savedProduct);
 
