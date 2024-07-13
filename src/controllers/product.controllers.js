@@ -5,6 +5,8 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import mongoose from "mongoose";
 
 //     /api/v1/products/upload
+
+
 //upload api
 const UploadProductDetail=asyncHandler(async(req,res)=>{
     const {title,price,description,category,version,attributes}=req.body;
