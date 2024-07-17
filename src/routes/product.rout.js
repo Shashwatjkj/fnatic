@@ -8,7 +8,7 @@ import { upload } from "../middlewares/multer.middleware.js";
 const router=Router();
 
 
-router.route("/upload").post(upload.fields(),UploadProductDetail);
+router.route("/upload").post(upload.any(),UploadProductDetail);
 router.route("/allproduct").get(getallProduct);
 
 export default router

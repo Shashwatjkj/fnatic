@@ -9,7 +9,7 @@ import mongoose from "mongoose";
 
 //upload api
 const UploadProductDetail=asyncHandler(async(req,res)=>{
-    const {title,price,description,category,version,attributes}=req.body;
+    const {title,price,description,category}=req.body;
 
     if (
         [title,price,description,category].some((field) => field?.trim() === "")
@@ -25,15 +25,15 @@ const UploadProductDetail=asyncHandler(async(req,res)=>{
         throw new ApiError(409, "Title  already exists")
     }
 
-    const localpath= req.files?.firstImage[0]?.path;
+    // const localpath= req.files?.firstImage[0]?.path;
 
-    if (!localpath) {
-        throw new ApiError(400, "Image of product is required")
-    }
+    // if (!localpath) {
+    //     throw new ApiError(400, "Image of product is required")
+    // }
 
-    const Urlofimage=await uploadOnCloudinary(localpath);
-
-   console.log(req.fiels);
+    // const Urlofimage=await uploadOnCloudinary(localpath);
+const temperat=req.files;
+   console.log(temperat);
 
     // const product =new Product({
     //     title,
@@ -45,7 +45,7 @@ const UploadProductDetail=asyncHandler(async(req,res)=>{
     // })
     // const savedProduct=await product.save();
     
-    return res.status(200).json(savedProduct);
+    return res.status(200).json(req.files);
 
 })
 
