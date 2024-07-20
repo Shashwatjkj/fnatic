@@ -1,6 +1,12 @@
 import mongoose from "mongoose"
 
 const versionSchema=new mongoose.Schema({
+    versionName:{
+       type:String 
+    },
+    size:{
+        type:String
+    },
     price:{
         type: Number
     },

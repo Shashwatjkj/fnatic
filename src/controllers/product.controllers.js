@@ -4,13 +4,13 @@ import { Product } from "../models/product.model.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import mongoose from "mongoose";
 
-//     /api/v1/products/upload
+//                                    /api/v1/products/upload
 
 
 //upload api
 const UploadProductDetail=asyncHandler(async(req,res)=>{
     const {title,price,description,category}=req.body;
-
+    console.log(req.body);
     if (
         [title,price,description,category].some((field) => field?.trim() === "")
     ) {
