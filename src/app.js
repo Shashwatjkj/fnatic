@@ -22,10 +22,11 @@ app.get("/",(req,res)=>{
 
 //routes import
 import userRouter from "./routes/user.rout.js"
-
+import productRouter from "./routes/product.rout.js"
 
 
 //routes declaration
 app.use("/api/v1/users",userRouter)
+app.use("/api/v1/products",productRouter)
 
 export {app}
