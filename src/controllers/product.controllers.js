@@ -52,7 +52,7 @@ const temperat=req.files;
 // getallproduct
 const getallProduct=asyncHandler(async(req,res)=>{
     const allProduct=await Product.find();
-    //console.log(allProduct);
+    console.log(allProduct);
     return res.status(200).send(allProduct);
 })
 
